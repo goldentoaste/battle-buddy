@@ -1,0 +1,119 @@
+#main-rats {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  margin-left: 265px;
+  height: 100vh;
+}
+
+#main-rats-content {
+    width: 100%;
+}
+
+#rats-cards-div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.rats-card {
+    display: flex;
+    flex-direction: column;
+  background-color: rgb(217, 82, 4, 0.4);
+  border-radius: 4px;
+  width: 50%;
+  padding: 12px;
+  margin-right: 40px;
+  align-content: center;
+  justify-content: center;
+}
+
+.heading1 {
+    font-family: "Open Sans";
+    font-weight: 900;
+    font-size: 18px;
+    color: #ECC494;
+}
+
+.heading2 {
+    font-family: "Open Sans";
+    font-weight: 700;
+    font-size: 16px;
+    color: #ECC494;
+}
+
+.heading3 {
+    font-family: "Open Sans";
+    font-weight: 600;
+    font-size: 14px;
+    color: #ECC494;
+    font-style: italic;
+}
+
+.rats-card > p {
+    font-family: "Open Sans";
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+}
+
+.rats-image > img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-radius: 50%;
+  border: 4px solid #FFB93B;
+}
+
+.rats-image {
+    text-align: center;
+}
+
+.rats-favorite-champ {
+    width: 60px;
+    height: 60px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid #F28705;
+  background-size: 120%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.rats-favorite-items-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.rats-favorite-items {
+    padding-left: 12px;
+}
+
+.rats-item {
+  border: 1px solid #F28705;
+  width: 28px;
+  height: 28px;
+  background-size: 120%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.rats-favorite-comp {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: -32px;
+  margin-bottom: 20px;
+}

@@ -40,18 +40,16 @@ const createComp = (compId) => {
   createChamp(compId + "Row1");
   createChamp(compId + "Row1");
   createChamp(compId + "Row1");
-  createChamp(compId + "Row1");
-  createChamp(compId + "Row1");
-  createChamp(compId + "Row1");
-  createChamp(compId + "Row1");
-  createThisChampOrThisChamp(compId + "Row1");
+  select2Champs(compId + "Row1");
+  select2ChampsWithItems(compId + "Row1");
+  select3ChampsWithItems(compId + "Row1")
   createChampWithItems(compId + "Row2");
   createChampWithItems(compId + "Row2");
   createChampWithItems(compId + "Row2");
   create3StarChamp(compId + "Row2");
   create3StarChampWithItems(compId + "Row2");
   create3StarChampWithItems(compId + "Row2");
-  createThisChampOrThisChampOrThisChamp(compId + "Row2");
+  select3Champs(compId + "Row2");
 };
 
 const createChamp = (compId) => {
@@ -204,7 +202,7 @@ const create3StarChampWithItems = (compId) => {
   champDiv.appendChild(champName);
 };
 
-const createThisChampOrThisChamp = (compId) => {
+const select2Champs = (compId) => {
   let champDiv = document.createElement("div");
   champDiv.setAttribute("class", "champDiv");
 
@@ -239,9 +237,73 @@ const createThisChampOrThisChamp = (compId) => {
   champDiv.appendChild(champNames);
 };
 
-const createThisChampOrThisChampWithItems = (compId) => {};
+const select2ChampsWithItems = (compId) => {
+  let champDiv = document.createElement("div");
+  champDiv.setAttribute("class", "champDiv");
 
-const createThisChampOrThisChampOrThisChamp = (compId) => {
+  let champImg1 = document.createElement("div");
+  champImg1.setAttribute("class", "champImg");
+  champImg1.setAttribute(
+    "style",
+    "background-image: url('res/all-champions/Akshan.png')"
+  ); // temp
+
+  let champImg2 = document.createElement("div");
+  champImg2.setAttribute("class", "champImg");
+  champImg2.setAttribute(
+    "style",
+    "background-image: url('res/all-champions/Aphelios.png'); margin-left: -16px"
+  ); // temp
+
+  let champImgDiv = document.createElement("div");
+  champImgDiv.setAttribute("class", "champImgDiv");
+  champImgDiv.appendChild(champImg1);
+  champImgDiv.appendChild(champImg2);
+
+  let champItem1 = document.createElement("div");
+  champItem1.setAttribute("class", "champItem champItemWidthSlightlyLarger");
+  champItem1.setAttribute(
+    "style",
+    "background-image: url('res/all-items/DClaw.png')"
+  ); // temp
+
+  let champItem2 = document.createElement("div");
+  champItem2.setAttribute(
+    "style",
+    "background-image: url('res/all-items/FON.png')"
+  ); // temp
+  champItem2.setAttribute("class", "champItem champItemNoMargin");
+
+  let champItem3 = document.createElement("div");
+  champItem3.setAttribute(
+    "style",
+    "background-image: url('res/all-items/FH.png')"
+  ); // temp
+  champItem3.setAttribute(
+    "class",
+    "champItem champItemWidthSlightlyLarger champItemNoMargin"
+  );
+
+  let champItemsDiv = document.createElement("div");
+  champItemsDiv.setAttribute("class", "champItemsDiv");
+  champItemsDiv.appendChild(champItem1);
+  champItemsDiv.appendChild(champItem2);
+  champItemsDiv.appendChild(champItem3);
+
+  champName1 = "Aphelios"; //temp
+  champName2 = "Akshan"; //temp
+
+  let champNames = document.createElement("span");
+  champNames.setAttribute("class", "champName");
+  champNames.innerHTML = champName1 + "/" + champName2; // temp
+
+  document.getElementById(compId).appendChild(champDiv);
+  champDiv.appendChild(champImgDiv);
+  champDiv.appendChild(champItemsDiv);
+  champDiv.appendChild(champNames);
+};
+
+const select3Champs = (compId) => {
   let champDiv = document.createElement("div");
   champDiv.setAttribute("class", "champDiv");
 
@@ -285,4 +347,77 @@ const createThisChampOrThisChampOrThisChamp = (compId) => {
   champDiv.appendChild(champNames);
 };
 
-const createThisChampOrThisChampOrThisChampWithItems = (compId) => {};
+const select3ChampsWithItems = (compId) => {
+  let champDiv = document.createElement("div");
+  champDiv.setAttribute("class", "champDiv");
+
+  let champImg1 = document.createElement("div");
+  champImg1.setAttribute("class", "champImg");
+  champImg1.setAttribute(
+    "style",
+    "background-image: url('res/all-champions/Karma.png')"
+  ); // temp
+
+  let champImg2 = document.createElement("div");
+  champImg2.setAttribute("class", "champImg");
+  champImg2.setAttribute(
+    "style",
+    "background-image: url('res/all-champions/Riven.png'); margin-left: -16px"
+  ); // temp
+
+  let champImg3 = document.createElement("div");
+  champImg3.setAttribute("class", "champImg");
+  champImg3.setAttribute(
+    "style",
+    "background-image: url('res/all-champions/Nidalee.png'); margin-left: -16px"
+  ); // temp
+
+  let champImgDiv = document.createElement("div");
+  champImgDiv.setAttribute("class", "champImgDiv");
+  champImgDiv.appendChild(champImg1);
+  champImgDiv.appendChild(champImg2);
+  champImgDiv.appendChild(champImg3);
+
+  let champItem1 = document.createElement("div");
+  champItem1.setAttribute("class", "champItem champItemWidthSlightlyLarger");
+  champItem1.setAttribute(
+    "style",
+    "background-image: url('res/all-items/DClaw.png')"
+  ); // temp
+
+  let champItem2 = document.createElement("div");
+  champItem2.setAttribute(
+    "style",
+    "background-image: url('res/all-items/FON.png')"
+  ); // temp
+  champItem2.setAttribute("class", "champItem champItemNoMargin");
+
+  let champItem3 = document.createElement("div");
+  champItem3.setAttribute(
+    "style",
+    "background-image: url('res/all-items/FH.png')"
+  ); // temp
+  champItem3.setAttribute(
+    "class",
+    "champItem champItemWidthSlightlyLarger champItemNoMargin"
+  );
+
+  let champItemsDiv = document.createElement("div");
+  champItemsDiv.setAttribute("class", "champItemsDiv");
+  champItemsDiv.appendChild(champItem1);
+  champItemsDiv.appendChild(champItem2);
+  champItemsDiv.appendChild(champItem3);
+
+  champName1 = "Karma"; //temp
+  champName2 = "Riven"; //temp
+  champName3 = "Nidalee"; // temp
+
+  let champNames = document.createElement("span");
+  champNames.setAttribute("class", "champName");
+  champNames.innerHTML = champName1 + "/" + champName2 + "/" + champName3; // temp
+
+  document.getElementById(compId).appendChild(champDiv);
+  champDiv.appendChild(champImgDiv);
+  champDiv.appendChild(champItemsDiv);
+  champDiv.appendChild(champNames);
+};
