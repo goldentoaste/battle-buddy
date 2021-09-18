@@ -79,15 +79,20 @@ body {
 
 .comp {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: rgb(217, 82, 4, 0.4);
   width: 100%;
   padding-top: 20px;
   padding-bottom: 20px;
   margin-top: 20px;
   border-radius: 4px;
+}
+
+.collapsedView {
   align-content: center;
   align-items: center;
+  display: flex;
+  flex-direction: row;
 }
 
 .compName {
@@ -272,4 +277,68 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #f27405;
+}
+
+.expandedView {
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 20px;
+}
+
+.carryChampImgNameAndItems {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
+
+.carryChampImgName {
+  padding-right: 11px;
+}
+
+.carryChampItems {
+  display: flex;
+  flex-direction: column;
+}
+
+.carryItemsRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.carryChampItemRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.carryColumnDiv {
+  width: 33%;
+}
+
+.carryChampItem {
+  border: 1px solid #ffb93b;
+  width: 28px;
+  height: 28px;
+  background-size: 120%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.carryLabelSpan {
+  color: #ecc494;
+  font-size: 14px;
+  font-family: "Open Sans";
+  font-weight: 700;
+}
+
+.carryDiv,
+.startingItems {
+  margin-top: 10px;
+}
+
+.startingItemsDiv {
+  width: 33%;
 }

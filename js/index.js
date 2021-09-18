@@ -5,6 +5,10 @@ const createComp = (compId) => {
   compDiv.setAttribute("id", compId);
   compDiv.setAttribute("class", "comp");
 
+  let collapsedView = document.createElement("div");
+  collapsedView.setAttribute("class", "collapsedView");
+  collapsedView.setAttribute("id", compId + "CollapsedView");
+
   let compName = document.createElement("span");
   compName.setAttribute("class", "compName");
   compName.innerHTML = "Comp name"; // temp
@@ -45,8 +49,9 @@ const createComp = (compId) => {
   champsDivRow2.setAttribute("id", compId + "champsDivRow2");
 
   document.getElementById("main-comps").appendChild(compDiv);
-  compDiv.appendChild(compNameAndDetailsDiv);
-  compDiv.appendChild(compChampsDiv);
+  collapsedView.appendChild(compNameAndDetailsDiv);
+  collapsedView.appendChild(compChampsDiv);
+  compDiv.appendChild(collapsedView);
   compRow1.appendChild(champsDivRow1);
   compRow2.appendChild(champsDivRow2);
 
@@ -473,6 +478,32 @@ const viewMoreDetails = (compId) => {
 
   document.getElementById(compId + "Row1").prepend(traitRow1);
   document.getElementById(compId + "Row2").prepend(traitRow2);
+
+  let expandedView = document.createElement("div");
+  expandedView.setAttribute("id", compId + "ExpandedView");
+  expandedView.setAttribute("class", "expandedView");
+
+  let carryItemsRow1 = document.createElement("div");
+  carryItemsRow1.setAttribute("id", compId + "CarryItemsRow1");
+  carryItemsRow1.setAttribute("class", "carryItemsRow");
+  carryItemsRow1.setAttribute("style", "margin-bottom: 20px;");
+
+  let carryItemsRow2 = document.createElement("div");
+  carryItemsRow2.setAttribute("id", compId + "CarryItemsRow2");
+  carryItemsRow2.setAttribute("class", "carryItemsRow");
+
+  expandedView.appendChild(carryItemsRow1);
+  expandedView.appendChild(carryItemsRow2);
+  document.getElementById(compId).appendChild(expandedView);
+
+  carryItemsRow1.appendChild(createCarryColumn("Carry #1", "Jax", 12)); // temp
+  carryItemsRow1.appendChild(createCarryColumn("Carry #3", "Nidalee", 4)); // temp
+  carryItemsRow1.appendChild(
+    createCarryColumn("Further itemization", "Teemo", 8)
+  ); // temp
+  carryItemsRow2.appendChild(createCarryColumn("Carry #2", "Rell", 8)); // temp
+  carryItemsRow2.appendChild(createStartingItems("Starting items", 3)); // temp
+  carryItemsRow2.appendChild(createStartingItems("Starting items", 4)); // temp
 };
 
 const viewLessDetails = (compId) => {};
@@ -493,4 +524,104 @@ const createTrait = (traitName, traitNumber) => {
   traitDiv.appendChild(traitNumberSpan);
 
   return traitDiv;
+};
+
+const createCarryColumn = (carryLabel, carryChampName, numOfItems) => {
+  let carryColumnDiv = document.createElement("div");
+  carryColumnDiv.setAttribute("class", "carryColumnDiv");
+
+  let carryLabelSpan = document.createElement("span");
+  carryLabelSpan.setAttribute("class", "carryLabelSpan");
+  carryLabelSpan.innerHTML = carryLabel;
+
+  carryColumnDiv.appendChild(carryLabelSpan);
+  carryColumnDiv.appendChild(createCarry(carryChampName, numOfItems));
+
+  return carryColumnDiv;
+};
+
+// ex. Jax, 10
+const createCarry = (carryChampName, numOfItems) => {
+  let carryDiv = document.createElement("div");
+  carryDiv.setAttribute("class", "carryDiv");
+
+  let carryChampImgNameAndItems = document.createElement("div");
+  carryChampImgNameAndItems.setAttribute("class", "carryChampImgNameAndItems");
+
+  let carryChampImgName = document.createElement("div");
+  carryChampImgName.setAttribute("class", "carryChampImgName");
+  let carryChampImg = document.createElement("div");
+  carryChampImg.setAttribute("class", "champImg fourCostChamp"); // fourCostChamp is temp
+  carryChampImg.setAttribute(
+    "style",
+    "background-image: url('res/all-champions/" + carryChampName + ".png');"
+  );
+  0;
+  let carryChampNameSpan = document.createElement("span");
+  carryChampNameSpan.setAttribute("class", "champName carryChampNameSpan");
+  carryChampNameSpan.innerHTML = carryChampName; //
+
+  carryChampImgName.appendChild(carryChampImg);
+  carryChampImgName.appendChild(carryChampNameSpan);
+
+  let carryChampItems = document.createElement("div");
+  carryChampItems.setAttribute("class", "champItems carryChampItems");
+
+  let carryChampItemRow;
+  for (let i = 0; i < numOfItems; i++) {
+    if (i % 5 == 0) {
+      carryChampItemRow = document.createElement("div");
+      carryChampItemRow.setAttribute("class", "carryChampItemRow");
+    }
+
+    let carryChampItem = document.createElement("div");
+    carryChampItem.setAttribute("class", "carryChampItem champItemNoMargin");
+    carryChampItem.setAttribute(
+      "style",
+      "background-image: url('res/all-items/BT.png"
+    ); // temp
+
+    carryChampItemRow.appendChild(carryChampItem);
+    carryChampItems.appendChild(carryChampItemRow);
+  }
+
+  carryDiv.appendChild(carryChampImgNameAndItems);
+  carryChampImgNameAndItems.appendChild(carryChampImgName);
+  carryChampImgNameAndItems.appendChild(carryChampItems);
+
+  return carryDiv;
+};
+
+const createStartingItems = (carryLabel, numOfItems) => {
+  let startingItemsDiv = document.createElement("div");
+  startingItemsDiv.setAttribute("class", "startingItemsDiv");
+
+  let startingItemsSpan = document.createElement("span");
+  startingItemsSpan.setAttribute("class", "carryLabelSpan");
+  startingItemsSpan.innerHTML = carryLabel;
+
+  let startingItemsItems = document.createElement("div");
+  startingItemsItems.setAttribute("class", "startingItems");
+
+  let carryChampItemRow;
+  for (let i = 0; i < numOfItems; i++) {
+    if (i % 5 == 0) {
+      carryChampItemRow = document.createElement("div");
+      carryChampItemRow.setAttribute("class", "carryChampItemRow");
+    }
+
+    let carryChampItem = document.createElement("div");
+    carryChampItem.setAttribute("class", "carryChampItem champItemNoMargin");
+    carryChampItem.setAttribute(
+      "style",
+      "background-image: url('res/all-items/BT.png"
+    ); // temp
+
+    carryChampItemRow.appendChild(carryChampItem);
+    startingItemsItems.appendChild(carryChampItemRow);
+  }
+
+  startingItemsDiv.appendChild(startingItemsSpan);
+  startingItemsDiv.appendChild(startingItemsItems);
+  return startingItemsDiv;
 };
