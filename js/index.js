@@ -1,3 +1,5 @@
+let openComps = [];
+
 const createComp = (compId) => {
   let compDiv = document.createElement("div");
   compDiv.setAttribute("id", compId);
@@ -8,6 +10,7 @@ const createComp = (compId) => {
   compName.innerHTML = "Comp name"; // temp
 
   let viewMore = document.createElement("span");
+  viewMore.setAttribute("id", "viewMore" + compId);
   viewMore.setAttribute("class", "viewCompDetailsText");
   viewMore.innerHTML = "Click to view more";
 
@@ -33,23 +36,37 @@ const createComp = (compId) => {
   compChampsDiv.appendChild(compRow1);
   compChampsDiv.appendChild(compRow2);
 
+  let champsDivRow1 = document.createElement("div");
+  champsDivRow1.setAttribute("class", "champsDivRow");
+  champsDivRow1.setAttribute("id", compId + "champsDivRow1");
+
+  let champsDivRow2 = document.createElement("div");
+  champsDivRow2.setAttribute("class", "champsDivRow");
+  champsDivRow2.setAttribute("id", compId + "champsDivRow2");
+
   document.getElementById("main-comps").appendChild(compDiv);
   compDiv.appendChild(compNameAndDetailsDiv);
   compDiv.appendChild(compChampsDiv);
+  compRow1.appendChild(champsDivRow1);
+  compRow2.appendChild(champsDivRow2);
 
-  createChamp(compId + "Row1");
-  createChamp(compId + "Row1");
-  createChamp(compId + "Row1");
-  select2Champs(compId + "Row1");
-  select2ChampsWithItems(compId + "Row1");
-  select3ChampsWithItems(compId + "Row1")
-  createChampWithItems(compId + "Row2");
-  createChampWithItems(compId + "Row2");
-  createChampWithItems(compId + "Row2");
-  create3StarChamp(compId + "Row2");
-  create3StarChampWithItems(compId + "Row2");
-  create3StarChampWithItems(compId + "Row2");
-  select3Champs(compId + "Row2");
+  compDiv.addEventListener("click", () => {
+    viewMoreDetails(compId);
+  });
+
+  createChamp(compId + "champsDivRow1"); // temp
+  createChamp(compId + "champsDivRow1"); // temp
+  createChamp(compId + "champsDivRow1"); // temp
+  select2Champs(compId + "champsDivRow1"); // temp
+  select2ChampsWithItems(compId + "champsDivRow1"); // temp
+  select3ChampsWithItems(compId + "champsDivRow1"); // temp
+  createChampWithItems(compId + "champsDivRow2"); // temp
+  createChampWithItems(compId + "champsDivRow2"); // temp
+  createChampWithItems(compId + "champsDivRow2"); // temp
+  create3StarChamp(compId + "champsDivRow2"); // temp
+  create3StarChampWithItems(compId + "champsDivRow2"); // temp
+  create3StarChampWithItems(compId + "champsDivRow2"); // temp
+  select3Champs(compId + "champsDivRow2"); // temp
 };
 
 const createChamp = (compId) => {
@@ -57,7 +74,7 @@ const createChamp = (compId) => {
   champDiv.setAttribute("class", "champDiv");
 
   let champImg = document.createElement("div");
-  champImg.setAttribute("class", "champImg champImgNoItem");
+  champImg.setAttribute("class", "champImg champImgNoItem twoCostChamp"); // twoCostChamp is temp
   champImg.setAttribute(
     "style",
     "background-image: url('res/all-champions/Aatrox.png')"
@@ -77,7 +94,7 @@ const createChampWithItems = (compId) => {
   champDiv.setAttribute("class", "champDiv");
 
   let champImg = document.createElement("div");
-  champImg.setAttribute("class", "champImg");
+  champImg.setAttribute("class", "champImg threeCostChamp"); // threeCostChamp is temp
   champImg.setAttribute(
     "style",
     "background-image: url('res/all-champions/Kennen.png')"
@@ -131,7 +148,10 @@ const create3StarChamp = (compId) => {
   starDiv.setAttribute("class", "starDiv");
 
   let champImg = document.createElement("div");
-  champImg.setAttribute("class", "champImg champImgStar champImgNoItem");
+  champImg.setAttribute(
+    "class",
+    "champImg champImgStar champImgNoItem threeCostChamp"
+  ); // threeCostChap is temp
   champImg.setAttribute(
     "style",
     "background-image: url('res/all-champions/Yasuo.png')"
@@ -155,7 +175,7 @@ const create3StarChampWithItems = (compId) => {
   starDiv.setAttribute("class", "starDiv");
 
   let champImg = document.createElement("div");
-  champImg.setAttribute("class", "champImg champImgStar");
+  champImg.setAttribute("class", "champImg champImgStar oneCostChamp"); // oneCostChamp  is temp
   champImg.setAttribute(
     "style",
     "background-image: url('res/all-champions/Yasuo.png')"
@@ -207,14 +227,14 @@ const select2Champs = (compId) => {
   champDiv.setAttribute("class", "champDiv");
 
   let champImg1 = document.createElement("div");
-  champImg1.setAttribute("class", "champImg champImgNoItem");
+  champImg1.setAttribute("class", "champImg champImgNoItem oneCostChamp"); //oneCostChamp is temp
   champImg1.setAttribute(
     "style",
     "background-image: url('res/all-champions/Akshan.png')"
   ); // temp
 
   let champImg2 = document.createElement("div");
-  champImg2.setAttribute("class", "champImg champImgNoItem");
+  champImg2.setAttribute("class", "champImg champImgNoItem fiveCostChamp"); // fiveCostChamp is temp
   champImg2.setAttribute(
     "style",
     "background-image: url('res/all-champions/Aphelios.png'); margin-left: -16px"
@@ -242,14 +262,14 @@ const select2ChampsWithItems = (compId) => {
   champDiv.setAttribute("class", "champDiv");
 
   let champImg1 = document.createElement("div");
-  champImg1.setAttribute("class", "champImg");
+  champImg1.setAttribute("class", "champImg twoCostChamp"); // twoCostChamp is temp
   champImg1.setAttribute(
     "style",
     "background-image: url('res/all-champions/Akshan.png')"
   ); // temp
 
   let champImg2 = document.createElement("div");
-  champImg2.setAttribute("class", "champImg");
+  champImg2.setAttribute("class", "champImg threeCostChamp"); //threeCostChamp is temp
   champImg2.setAttribute(
     "style",
     "background-image: url('res/all-champions/Aphelios.png'); margin-left: -16px"
@@ -308,21 +328,21 @@ const select3Champs = (compId) => {
   champDiv.setAttribute("class", "champDiv");
 
   let champImg1 = document.createElement("div");
-  champImg1.setAttribute("class", "champImg champImgNoItem");
+  champImg1.setAttribute("class", "champImg champImgNoItem oneCostChamp"); // oneCostchamp is temp
   champImg1.setAttribute(
     "style",
     "background-image: url('res/all-champions/Lulu.png')"
   ); // temp
 
   let champImg2 = document.createElement("div");
-  champImg2.setAttribute("class", "champImg champImgNoItem");
+  champImg2.setAttribute("class", "champImg champImgNoItem twoCostChamp"); // twoCostChamp is temp
   champImg2.setAttribute(
     "style",
     "background-image: url('res/all-champions/Irelia.png'); margin-left: -16px"
   ); // temp
 
   let champImg3 = document.createElement("div");
-  champImg3.setAttribute("class", "champImg champImgNoItem");
+  champImg3.setAttribute("class", "champImg champImgNoItem fiveCostChamp"); //fiveCostChamp is temp
   champImg3.setAttribute(
     "style",
     "background-image: url('res/all-champions/Naut.png'); margin-left: -16px"
@@ -352,21 +372,21 @@ const select3ChampsWithItems = (compId) => {
   champDiv.setAttribute("class", "champDiv");
 
   let champImg1 = document.createElement("div");
-  champImg1.setAttribute("class", "champImg");
+  champImg1.setAttribute("class", "champImg oneCostChamp"); //oneCostChamp is temp
   champImg1.setAttribute(
     "style",
     "background-image: url('res/all-champions/Karma.png')"
   ); // temp
 
   let champImg2 = document.createElement("div");
-  champImg2.setAttribute("class", "champImg");
+  champImg2.setAttribute("class", "champImg fourCostChamp"); //fourCostChamp is temp
   champImg2.setAttribute(
     "style",
     "background-image: url('res/all-champions/Riven.png'); margin-left: -16px"
   ); // temp
 
   let champImg3 = document.createElement("div");
-  champImg3.setAttribute("class", "champImg");
+  champImg3.setAttribute("class", "champImg fourCostChamp"); //fourCostChamp is temp
   champImg3.setAttribute(
     "style",
     "background-image: url('res/all-champions/Nidalee.png'); margin-left: -16px"
@@ -420,4 +440,57 @@ const select3ChampsWithItems = (compId) => {
   champDiv.appendChild(champImgDiv);
   champDiv.appendChild(champItemsDiv);
   champDiv.appendChild(champNames);
+};
+
+const viewMoreDetails = (compId) => {
+  let viewMoreId = "viewMore" + compId;
+  let viewMore = document.getElementById(viewMoreId);
+  viewMore.innerHTML = "Click to collapse";
+
+  let traitRow1 = document.createElement("div");
+  traitRow1.setAttribute("class", "traitRow");
+  traitRow1.setAttribute("id", compId + "traitRow1");
+  traitRow1.appendChild(createTrait("ABOM", "2")); // temp
+  traitRow1.appendChild(createTrait("RNGR", "4")); // temp
+  traitRow1.appendChild(createTrait("MYST", "3")); // temp
+  traitRow1.appendChild(createTrait("DAWN", "2")); // temp
+  traitRow1.appendChild(createTrait("KNT", "2")); // temp
+  traitRow1.appendChild(createTrait("SPLW", "2")); // temp
+  traitRow1.appendChild(createTrait("DRAC", "2")); // temp
+  traitRow1.appendChild(createTrait("LEGI", "2")); // temp
+
+  let traitRow2 = document.createElement("div");
+  traitRow2.setAttribute("id", compId + "traitRow2");
+  traitRow2.setAttribute("class", "traitRow");
+  traitRow2.appendChild(createTrait("HELL", "2")); // temp
+  traitRow2.appendChild(createTrait("BRWL", "4")); // temp
+  traitRow2.appendChild(createTrait("NITE", "3")); // temp
+  traitRow2.appendChild(createTrait("IRON", "2")); // temp
+  traitRow2.appendChild(createTrait("FORG", "2")); // temp
+  traitRow2.appendChild(createTrait("SKRM", "2")); // temp
+  traitRow2.appendChild(createTrait("SENT", "3")); // temp
+  traitRow2.appendChild(createTrait("ASSA", "4")); // temp
+
+  document.getElementById(compId + "Row1").prepend(traitRow1);
+  document.getElementById(compId + "Row2").prepend(traitRow2);
+};
+
+const viewLessDetails = (compId) => {};
+
+const createTrait = (traitName, traitNumber) => {
+  let traitDiv = document.createElement("div");
+  traitDiv.setAttribute("class", "traitDiv");
+
+  let traitImg = document.createElement("img");
+  traitImg.setAttribute("class", "traitImg");
+  traitImg.src = "res/all-traits/" + traitName + ".svg";
+
+  let traitNumberSpan = document.createElement("span");
+  traitNumberSpan.setAttribute("class", "traitNumberSpan");
+  traitNumberSpan.innerHTML = traitNumber; // TEMP
+
+  traitDiv.appendChild(traitImg);
+  traitDiv.appendChild(traitNumberSpan);
+
+  return traitDiv;
 };

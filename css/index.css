@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
 
 body {
+  background-color: #6f3517;
   margin: 0;
   font-family: "Open Sans";
   background-image: url("../res/backgrounds/Background1.png");
@@ -117,7 +118,7 @@ body {
 
 .compRow {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .champDiv {
@@ -136,10 +137,29 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   border-radius: 50%;
-  border: 4px solid #207ac6;
   background-size: 116%;
   background-repeat: no-repeat;
   background-position: center center;
+}
+
+.oneCostChamp {
+  border: 4px solid #808080;
+}
+
+.twoCostChamp {
+  border: 4px solid #11b288;
+}
+
+.threeCostChamp {
+  border: 4px solid #207ac6;
+}
+
+.fourCostChamp {
+  border: 4px solid #c440da;
+}
+
+.fiveCostChamp {
+  border: 4px solid #ffb93b;
 }
 
 .champImgNoItem {
@@ -158,6 +178,11 @@ body {
   display: flex;
   flex-direction: row;
   margin-top: -12px;
+}
+
+.champsDivRow {
+  display: flex;
+  flex-direction: row;
 }
 
 .champItemWidthSlightlyLarger {
@@ -195,6 +220,38 @@ body {
 .champImgDiv {
   display: flex;
   flex-direction: row;
+}
+
+.traitDiv {
+  width: 33px;
+  height: 24px;
+  background-image: url("../res/trait.png");
+  background-size: cover;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.traitRow {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+}
+
+.traitImg {
+  width: 12px;
+  height: 100%;
+  background-size: cover;
+  padding-left: 4px;
+}
+
+.traitNumberSpan {
+  font-family: "Open Sans";
+  font-weight: 600;
+  font-size: 9px;
+  color: #ffffff;
+  padding-left: 8px;
 }
 
 /* width */
