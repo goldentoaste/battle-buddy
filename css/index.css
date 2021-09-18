@@ -1,0 +1,218 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+
+body {
+  margin: 0;
+  font-family: "Open Sans";
+  background-image: url("../res/backgrounds/Background1.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+#title {
+  font-size: 24px;
+  color: #ecc494;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #ecc494;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+#flex-main {
+  display: flex;
+  flex-direction: row;
+}
+
+#sidebar {
+  background-color: #232226;
+  width: 225px;
+  height: 800px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  border-right: 1px solid #d95204;
+}
+
+#main {
+  width: 1000px;
+  padding-left: 265px;
+  padding-top: 40px;
+  padding-right: 40px;
+  padding-bottom: 40px;
+}
+
+#img-logo {
+  width: 135px;
+  height: 36px;
+  margin-top: 40px;
+  margin-left: 36px;
+  margin-bottom: 20px;
+}
+
+.sidebar-link > a {
+  color: #ecc494;
+  font-size: 14px;
+  font-family: "Open Sans";
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sidebar-link {
+  margin-left: 0px !important;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.selected-link {
+  background-color: rgb(217, 82, 4, 0.6);
+  border-right: 8px solid #d95204;
+}
+
+.comp {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(217, 82, 4, 0.4);
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 4px;
+  align-content: center;
+  align-items: center;
+}
+
+.compName {
+  width: 100px;
+  font-family: "Open Sans";
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.viewCompDetailsText {
+  width: 100px;
+  padding-top: 8px;
+  font-family: "Open Sans";
+  font-weight: 700;
+  font-size: 9px;
+  color: #ecc494;
+}
+
+.compChampsDiv {
+  padding-left: 40px;
+}
+
+.compNameAndDetailsDiv {
+  flex-direction: column;
+  padding-left: 40px;
+}
+
+.compRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.champDiv {
+  text-align: center;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
+
+.champImg {
+  width: 60px;
+  height: 60px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-radius: 50%;
+  border: 4px solid #207ac6;
+  background-size: 116%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.champImgNoItem {
+  margin-bottom: 8px;
+}
+
+.champName {
+  font-family: "Open Sans";
+  font-weight: 600;
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.champItemsDiv {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  margin-top: -12px;
+}
+
+.champItemWidthSlightlyLarger {
+  width: 21px !important;
+}
+
+.champItem {
+  border: 1px solid #ffb93b;
+  width: 20px;
+  height: 20px;
+  background-size: 120%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.champItemNoMargin {
+  margin-left: -1px;
+}
+
+.champImgStar {
+  margin-top: -12px;
+}
+
+.starDiv {
+  z-index: 1;
+  width: 45.62px;
+  height: 19.26px;
+  background-image: url("../res/3stars.png");
+  margin-top: -8px;
+}
+
+.champImgDiv {
+  display: flex;
+  flex-direction: row;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #232226;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #f28705;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #f27405;
+}

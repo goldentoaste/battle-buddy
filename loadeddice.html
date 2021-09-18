@@ -1,0 +1,68 @@
+<!--loadeddice.html-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <title>Battle Buddy</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="https://code.iconify.design/2/2.0.4/iconify.min.js"></script>
+    <script src="js/index.js"></script>
+  </head>
+
+  <body>
+    <div id="flex-main">
+      <div id="sidebar">
+        <img src="res/battlebuddy-horizontal-text.svg" id="img-logo" />
+        <div style="padding-left: 38px" class="sidebar-link">
+          <span
+            class="iconify"
+            data-icon="fa-solid:chess-pawn"
+            style="color: #ecc494; font-size: 20px"
+          ></span
+          ><a tabindex="-1" style="margin-left: 16px" href="index.html"
+            >Team Comps</a
+          >
+        </div>
+        <div style="padding-left: 34px" class="sidebar-link">
+          <span
+            class="iconify"
+            data-icon="ant-design:flag-filled"
+            style="color: #ecc494; font-size: 20px"
+          ></span>
+          <a tabindex="-1" style="margin-left: 13px" href="scoutingtool.html"
+            >Scouting Tool</a
+          >
+        </div>
+        <div style="padding-left: 32px" class="selected-link sidebar-link">
+          <span
+            class="iconify"
+            data-icon="fa-solid:dice"
+            style="color: #ecc494; font-size: 20px"
+          ></span>
+          <a tabindex="-1" style="margin-left: 10px" href="loadeddice.html"
+            >Loaded Dice</a
+          >
+        </div>
+        <div style="padding-left: 31px" class="sidebar-link">
+          <span
+            class="iconify"
+            data-icon="bi:people-fill"
+            style="color: #ecc494; font-size: 20px"
+          ></span>
+          <a tabindex="-1" style="margin-left: 9px" href="meetthedevs.html"
+            >Meet the Devs</a
+          >
+        </div>
+      </div>
+      <div id="main">
+        <span id="title">Loaded Dice</span>
+        <br />
+        <span id="patch-number" class="subtitle">TFT SET 5.5</span>
+        <div id="main-comps"></div>
+      </div>
+    </div>
+  </body>
+</html>

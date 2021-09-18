@@ -1,30 +1,15 @@
 {
-
-    "name": "electron_stuff",
-    "version": "1.0.0",
-    "description": "just some electron stuff",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "electron ."
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/goldentoaste/electron-stuff.git"
-    },
-    "keywords": [
-        "owo"
-    ],
-    "author": "owo",
-    "license": "UNLICENSED",
-    "bugs": {
-        "url": "https://github.com/goldentoaste/electron-stuff/issues"
-    },
-    "homepage": "https://github.com/goldentoaste/electron-stuff#readme",
-    "devDependencies": {
-        "electron": "^14.0.1"
-    },
-    "dependencies": {
-        "python-shell": "^3.0.0"
-    }
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "description": "Hewwo wowld :3c",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Christina Raganit",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^14.0.1",
+    "electron-reloader": "^1.2.1"
+  }
 }
