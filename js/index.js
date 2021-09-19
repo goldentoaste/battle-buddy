@@ -69,6 +69,7 @@ const createChamps = (compId, champNames, items) => {
 
 		let individualDiv = document.createElement("div");
 		individualDiv.setAttribute('class', 'individualChamp');
+		
 
 
 		let champImg = document.createElement("div");
@@ -79,8 +80,16 @@ const createChamps = (compId, champNames, items) => {
 			"background-image: url('res/all-champions/" + champNames[i] + ".png')"
 		);
 
-		champImgDiv.appendChild(champImg)
+		if (champNames[i].charAt(0) === star ){
 
+			let starDiv = document.createElement("div");
+    		starDiv.setAttribute("class", "starDiv");
+			champImg.appendChild(starDiv);
+		}
+
+		individualDiv.appendChild(champImg)
+		champImgDiv.appendChild(individualDiv)
+		
 	}
 
 	for (let i = 0; i < items.length; i ++){
