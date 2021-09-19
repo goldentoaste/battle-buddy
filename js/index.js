@@ -1,7 +1,7 @@
 
 const { spawn } = require('child_process');
 const fetch = require('node-fetch')
-child = spawn('./py/parse.exe')
+
 let star = '★'
 
 
@@ -42,13 +42,13 @@ async function fetchData() {
 
 	return res;
 }
+// child = spawn('./py/parse.exe')
+// child.on('spawn', async () => {
 
-child.on('spawn', async () => {
+// 	await sleep(2000)
 
-	await sleep(2000)
-
-	fetchData();
-})
+// 	fetchData();
+// })
 
 
 const createChamps = (compId, champNames, items) => {
@@ -68,7 +68,7 @@ const createChamps = (compId, champNames, items) => {
 
 		let champImg = document.createElement("div");
 
-		attributes = "champImg " + (items.length === 0 ? "champImgNoItem" : "") + (champCosts[champNames[i]]) + (champNames[i].charAt(0)=== star? 'champImgStar' : "") 
+		attributes = "champImg " + (items.length === 0 ? "champImgNoItem" : "") + (champCosts[champNames[i]]) + (champNames[i].charAt(0) === star ? 'champImgStar' : "")
 		champImg.setAttribute("class", attributes); // twoCostChamp is temp
 		champImg.setAttribute(
 			"style",
@@ -77,11 +77,11 @@ const createChamps = (compId, champNames, items) => {
 		champImages.push(champImg)
 
 		champImgDiv.appendChild(champImg)
-	
-	
 
 
-	
+
+
+
 	}
 
 
