@@ -6,6 +6,7 @@ const fetch = require('node-fetch')
 
 let star = '★'
 
+let openViews = new Set()
 
 champNameCorrection = {
 	"Fiddle": "Fiddlesticks",
@@ -125,7 +126,6 @@ async function fetchData() {
 		compId = "comp" + (i + 1)
 		createComp1(compId, fields[0]);
 
-
 		group1 = fields[1].split('+')
 		champs1 = group1[1].split(",")
 		traits1 = group1[2].split(",")
@@ -148,12 +148,22 @@ async function fetchData() {
 		}
 
 		itemsGroups = fields[3].split('|').concat(fields[4].split('|')).concat(fields[5].split('|'))
+
+		commentGroup = fields[6].split('|')
+		console.log(commentGroup, commentGroup[0] === 'champItems', commentGroup[0] == 'champItems');
+		if (commentGroup.length > 0 && commentGroup[0] === 'champItems') {
+			commentGroup.splice(0, 1)
+			itemsGroups = itemsGroups.concat(commentGroup);
+		}
+
 		itemsGroups = itemsGroups.filter(item => item.length > 0)
+
+
 
 		starredChamps = new Set();
 		champItemDict = {};
 
-
+		champItemDictNoDups = {};
 
 
 		for (let j = 0; j < itemsGroups.length; j++) {
@@ -162,6 +172,7 @@ async function fetchData() {
 			items = stuff[1].split('/')
 
 			champItemDict["" + stuff[0]] = items;
+			champItemDictNoDups["" + stuff[0]] = items;
 
 			champs = stuff[0].split("/");
 
@@ -179,16 +190,15 @@ async function fetchData() {
 				if (stuff[0].charAt(0) === star) {
 					starredChamps.add(stuff[0].substr(1, stuff[0].length));
 				}
-
 			}
 
+
 		}
-		console.log(starredChamps, champItemDict);
 		for (let j = 0; j < champs1.length; j++) {
 			let items;
 			if (starredChamps.has(champs1[j])) {
 				items = champItemDict[star + champs1[j]];
-				console.log(star + champs1[j], (star + champs1[j]) in champItemDict, champs1[j], items)
+
 			}
 			else {
 				items = champItemDict[champs1[j]];
@@ -197,8 +207,7 @@ async function fetchData() {
 			if (!items) {
 				items = [];
 			}
-
-			createChamps(compId + "champsDivRow" + 1, champs1[j].split('/'), items)
+			createChamps(compId + "champsDivRow" + 1, champs1[j].split('/'), items, starredChamps)
 		}
 		for (let j = 0; j < champs2.length; j++) {
 			let items;
@@ -211,9 +220,82 @@ async function fetchData() {
 			if (!items) {
 				items = [];
 			}
-			createChamps(compId + "champsDivRow" + 2, champs2[j].split('/'), items)
+			createChamps(compId + "champsDivRow" + 2, champs2[j].split('/'), items, starredChamps)
+		}
+
+		let viewMoreId = "viewMore" + compId;
+		let viewMore = document.getElementById(viewMoreId);
+
+		let traitRow1 = document.createElement("div");
+		traitRow1.setAttribute("class", "traitRow");
+		traitRow1.setAttribute("id", compId + "traitRow1");
+		for (let j = 0; j < traits1.length; j++) {
+			numberNTrait = traits1[j].split('-')
+			traitRow1.appendChild(createTrait(numberNTrait[1], numberNTrait[0]))
+		}
+
+		let traitRow2 = document.createElement("div");
+		traitRow2.setAttribute("class", "traitRow");
+		traitRow2.setAttribute("id", compId + "traitRow2");
+		for (let j = 0; j < traits2.length; j++) {
+			numberNTrait = traits2[j].split('-')
+			traitRow2.appendChild(createTrait(numberNTrait[1], numberNTrait[0]))
+		}
+
+		document.getElementById(compId + "Row1").prepend(traitRow1);
+		document.getElementById(compId + "Row2").prepend(traitRow2);
+
+		let expandedView = document.createElement("div");
+		expandedView.setAttribute("id", compId + "ExpandedView");
+		expandedView.setAttribute("class", "expandedView");
+
+		let carryItemsRow1 = document.createElement("div");
+		carryItemsRow1.setAttribute("id", compId + "CarryItemsRow1");
+		carryItemsRow1.setAttribute("class", "carryItemsRow");
+		carryItemsRow1.setAttribute("style", "margin-bottom: 20px;");
+
+		let carryItemsRow2 = document.createElement("div");
+		carryItemsRow2.setAttribute("id", compId + "CarryItemsRow2");
+		carryItemsRow2.setAttribute("class", "carryItemsRow");
+
+		expandedView.appendChild(carryItemsRow1);
+		expandedView.appendChild(carryItemsRow2);
+		document.getElementById(compId).appendChild(expandedView);
+
+
+		dict = { 0: 'Carry#1', 2: 'Carry#2', 4: 'Further Itemization', 6: 'Additional Info' }
+
+		let current;
+
+		keys = Object.keys(champItemDictNoDups);
+
+
+
+		console.log(champItemDictNoDups)
+		for (let j = 0; j < keys.length; j++) {
+			key = keys[j].replaceAll(star, '')
+			if (j in dict) {
+				let carryColumnDiv = document.createElement("div");
+				carryColumnDiv.setAttribute("class", "carryColumnDiv");
+				current = carryColumnDiv
+
+				let carryLabelSpan = document.createElement("span");
+				carryLabelSpan.setAttribute("class", "carryLabelSpan");
+				carryLabelSpan.innerHTML = dict[j];
+				carryColumnDiv.appendChild(carryLabelSpan);
+				if (j > 5) {
+					carryItemsRow2.appendChild(carryColumnDiv);
+				}
+				else {
+					carryItemsRow1.appendChild(carryColumnDiv);
+				}
+			}
+			console.log(key, key, champItemDictNoDups[keys[j]])
+			current.appendChild(createCarry(starredChamps.has(key), key, champItemDictNoDups[keys[j]]))
 		}
 	}
+
+
 
 }
 const doStuff = async () => {
@@ -230,7 +312,7 @@ doStuff()
 // })
 
 
-const createChamps = (compId, champNames, items) => {
+const createChamps = (compId, champNames, items, starredChamps) => {
 	//string, List[str], List[str]
 	let champDiv = document.createElement("div");
 	champDiv.setAttribute("class", "champDiv");
@@ -250,21 +332,20 @@ const createChamps = (compId, champNames, items) => {
 		individualDiv.setAttribute('class', 'individualChamp');
 
 
-		//(champCosts[champNames[i]])
 
 		let champImg = document.createElement("div");
-		attributes = "champImg " + (items.length === 0 ? " champImgNoItem " : "") + champCosts[champNames[i]] + (champNames[i].charAt(0) === star ? 'champImgStar' : "")
+		attributes = "champImg " + (items.length === 0 ? " champImgNoItem " : "") + champCosts[champNames[i].replaceAll('\\', '')] + (starredChamps.has(champNames[i]) ? ' champImgStar' : "")
 		champImg.setAttribute("class", attributes); // twoCostChamp is temp
 		champImg.setAttribute(
 			"style",
-			"background-image: url('res/all-champions/" + champNames[i] + ".png')" + (i > 0? "; margin-left: -16px" : "")
+			"background-image: url('res/all-champions/" + champNames[i] + ".png')" + (i > 0 ? "; margin-left: -20px" : "")
 		);
 
-		if (champNames[i].charAt(0) === star) {
+		if (starredChamps.has(champNames[i])) {
 
 			let starDiv = document.createElement("div");
 			starDiv.setAttribute("class", "starDiv");
-			champImg.appendChild(starDiv);
+			individualDiv.appendChild(starDiv);
 		}
 
 		individualDiv.appendChild(champImg)
@@ -298,6 +379,16 @@ const createComp1 = (compId, compNameStr) => {
 	let compDiv = document.createElement("div");
 	compDiv.setAttribute("id", compId);
 	compDiv.setAttribute("class", "comp");
+	compDiv.addEventListener('click', () => {
+		if (openViews.has(compId)) {
+			openViews.delete(compId);
+			viewLessDetails(compId);
+		}
+		else {
+			openViews.add(compId);
+			viewMoreDetails(compId);
+		}
+	})
 
 
 	let collapsedView = document.createElement("div");
@@ -312,6 +403,8 @@ const createComp1 = (compId, compNameStr) => {
 	viewMore.setAttribute("id", "viewMore" + compId);
 	viewMore.setAttribute("class", "viewCompDetailsText");
 	viewMore.innerHTML = "Click to view more";
+
+
 
 	let breaktag = document.createElement("br");
 
@@ -353,7 +446,6 @@ const createComp1 = (compId, compNameStr) => {
 }
 
 
-let openComps = [];
 
 const createComp = (compId) => {
 	let compDiv = document.createElement("div");
@@ -927,7 +1019,7 @@ const create2CarryColumn = (
 };
 
 // ex. Jax, 10
-const createCarry = (is3Star, carryChampName, numOfItems) => {
+const createCarry = (is3Star, carryChampName, items) => {
 	let carryDiv = document.createElement("div");
 	carryDiv.setAttribute("class", "carryDiv");
 
@@ -937,14 +1029,15 @@ const createCarry = (is3Star, carryChampName, numOfItems) => {
 	let carryChampImgName = document.createElement("div");
 	carryChampImgName.setAttribute("class", "carryChampImgName");
 	let carryChampImg = document.createElement("div");
-	carryChampImg.setAttribute("class", "champImg fourCostChamp"); // fourCostChamp is temp
+	carryChampImg.setAttribute("class", "champImg " + champCosts[carryChampName]); // fourCostChamp is temp
 	carryChampImg.setAttribute(
 		"style",
 		"background-image: url('res/all-champions/" + carryChampName + ".png');"
 	);
 
 	if (is3Star) {
-		carryChampImg.setAttribute("class", "champImg fourCostChamp champImgStar"); // fourCostChamp is temp
+		carryChampImg.setAttribute("class", "champImg champImgStar " + champCosts[carryChampName]); // fourCostChamp is temp
+
 	}
 	0;
 	let carryChampNameSpan = document.createElement("span");
@@ -964,7 +1057,7 @@ const createCarry = (is3Star, carryChampName, numOfItems) => {
 	carryChampItems.setAttribute("class", "champItems carryChampItems");
 
 	let carryChampItemRow;
-	for (let i = 0; i < numOfItems; i++) {
+	for (let i = 0; i < items.length; i++) {
 		if (i % 5 == 0) {
 			carryChampItemRow = document.createElement("div");
 			carryChampItemRow.setAttribute("class", "carryChampItemRow");
@@ -974,8 +1067,8 @@ const createCarry = (is3Star, carryChampName, numOfItems) => {
 		carryChampItem.setAttribute("class", "carryChampItem champItemNoMargin");
 		carryChampItem.setAttribute(
 			"style",
-			"background-image: url('res/all-items/BT.png"
-		); // temp
+			"background-image: url('res/all-items/" + items[i] + ".png')"
+		);
 
 		carryChampItemRow.appendChild(carryChampItem);
 		carryChampItems.appendChild(carryChampItemRow);
