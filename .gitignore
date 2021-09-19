@@ -5,6 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+packaged
+my-electron-app-win32-x64
+
 # Runtime data
 pids
 *.pid
