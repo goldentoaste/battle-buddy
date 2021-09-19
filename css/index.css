@@ -349,5 +349,12 @@ body {
   flex-direction: column;
   align-content: center;
   align-items: center;
+}
+
+.individualDiv {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
   align-content: center;
+  align-items: center;
 }
