@@ -2,8 +2,6 @@
 const { spawn } = require('child_process');
 const fetch = require('node-fetch')
 
-
-
 let star = '★'
 
 let openViews = new Set()
@@ -114,10 +112,10 @@ function sleep(ms) {
 
 async function fetchData() {
 
-	//TODO const res = await fetch("http://localhost:8080/",);
+	const res = await fetch("http://localhost:8080/",);
 
-	//const data = await res.text();
-	const data = output
+	const data = await res.text();
+	//const data = output
 
 	lines = data.split('\n')
 
@@ -300,18 +298,20 @@ async function fetchData() {
 
 
 }
-const doStuff = async () => {
-	await sleep(500);
+// const doStuff = async () => {
+// 	await sleep(500);
+// 	fetchData();
+// }
+// doStuff()
+child = spawn('./py/parse/parse.exe')
+
+
+child.on('spawn', async () => {
+
+	await sleep(5000);
+
 	fetchData();
-}
-doStuff()
-// child = spawn('./py/parse.exe')
-// child.on('spawn', async () => {
-
-// 	await sleep(4000);
-
-// 	//fetchData();
-// })
+})
 
 
 const createChamps = (compId, champNames, items, starredChamps) => {
@@ -1062,10 +1062,10 @@ const createCarry = (is3Star, carryChampName, items) => {
 		individualDiv.setAttribute('class', 'individualChamp');
 
 		let carryChampImg = document.createElement("div");
-		carryChampImg.setAttribute("class", "champImg " + champCosts[champs[i]]+ (starredChamps.has(champs[i]) ? ' champImgStar' : "" )) // fourCostChamp is temp
+		carryChampImg.setAttribute("class", "champImg " + champCosts[champs[i]] + (starredChamps.has(champs[i]) ? ' champImgStar' : "")) // fourCostChamp is temp
 		carryChampImg.setAttribute(
 			"style",
-			"background-image: url('res/all-champions/" + champs[i].replaceAll("\'", "\\'") + ".png');"+ (i > 0 ? "; margin-left: -20px" : "")
+			"background-image: url('res/all-champions/" + champs[i].replaceAll("\'", "\\'") + ".png');" + (i > 0 ? "; margin-left: -20px" : "")
 
 		);
 
@@ -1080,7 +1080,7 @@ const createCarry = (is3Star, carryChampName, items) => {
 		individualDiv.appendChild(carryChampImg)
 		champContainer.appendChild(individualDiv)
 
-		
+
 	}
 
 
