@@ -2,19 +2,106 @@
 const { spawn } = require('child_process');
 const fetch = require('node-fetch')
 
+
+
 let star = '★'
 
 
 champNameCorrection = {
-	"Fiddle": "Fiddlestick",
-	"Naut": "Nautilis",
-	"Heimerdinger": "Heimer"
+    "Fiddle": "Fiddlesticks",
+    "Naut": "Nautilus",
+    "MF": "MissFortune",
+    "Nida": "Nidalee",
+    "Nida.": "Nidalee",
+    "Voli": "Volibear",
 }
 
 champCosts = {
+
+	"Aatrox": 'oneCostChamp',
+	"Akshan": 'fiveCostChamp',
+	"Aphelios": 'fourCostChamp',
+	"Ashe": 'threeCostChamp',
+	"Brand": 'twoCostChamp',
+	"Diana": 'fourCostChamp',
+	"Draven": 'fourCostChamp',
+	"Fiddle": 'fourCostChamp',
+	"Fiddlesticks": 'fourCostChamp',
+	"Fiddlestick": 'fourCostChamp',
+	"Fiddle[ASSA]": 'fourCostChamp',
+	"Galio": 'fourCostChamp',
+	"Garen": 'fiveCostChamp',
+	"Gragas": 'oneCostChamp',
+	"Gwen": 'fiveCostChamp',
+	"Hecarim": 'twoCostChamp',
+	"Heimer": 'fiveCostChamp',
+	"Heimerdinger": 'fiveCostChamp',
+	"Irelia": 'twoCostChamp',
+	"Ivern": 'fourCostChamp',
+	"Jax": 'fourCostChamp',
+	"Kalista": 'oneCostChamp',
+	"Karma": 'fourCostChamp',
+	"Kayle": 'fiveCostChamp',
+	"Kennen": 'twoCostChamp',
+	"Kha'Zix": 'oneCostChamp',
+	"Kled": 'oneCostChamp',
+	"LeeSin": 'threeCostChamp',
+	"Leona": 'oneCostChamp',
+	"Lucian": 'fourCostChamp',
+	"Lulu": 'threeCostChamp',
+	"Lux": 'threeCostChamp',
+	"MissFortune": 'threeCostChamp',
+	"Nautilus": 'twoCostChamp',
+	"Naut": 'twoCostChamp',
+	"Nidalee": 'threeCostChamp',
+	"Nocturne": 'threeCostChamp',
+	"Nunu": 'threeCostChamp',
+	"Olaf": 'oneCostChamp',
+	"Poppy": 'oneCostChamp',
+	"Pyke": 'twoCostChamp',
+	"Rakan": 'threeCostChamp',
+	"Rell": 'fourCostChamp',
+	"Riven": 'threeCostChamp',
+	"Sejuani": 'twoCostChamp',
+	"Senna": 'oneCostChamp',
+	"Sett": 'twoCostChamp',
+	"Soraka": 'twoCostChamp',
+	"Syndra": 'twoCostChamp',
 	"Teemo": 'fiveCostChamp',
-	"Yasuo": 'threeCostChamp'
+	"Thresh": 'twoCostChamp',
+	"Tristana": 'twoCostChamp',
+	"Udyr": 'oneCostChamp',
+	"Varus": 'twoCostChamp',
+	"Vayne": 'oneCostChamp',
+	"Vel'Koz": 'fourCostChamp',
+	"Viego": 'fiveCostChamp',
+	"Vladimir": 'oneCostChamp',
+	"Voli": 'fiveCostChamp',
+	"Volibear": 'fiveCostChamp',
+	"Yasuo": 'threeCostChamp',
+	"Ziggs": 'oneCostChamp',
+	"Zyra": 'threeCostChamp'
 }
+
+output = `Legendary Itemization&9+Garen,Galio,Teemo,Heimer,Ivern,Voli,Fiddle,Lulu,Gwen+2-KNT,2-INVO,2-HELL,2-RNEW,3-RVNT,3-MYST&8+Garen,Karma,Syndra,Teemo,Heimer,Ivern,Voli,Fiddle+2-DAWN,4-INVO,2-RNEW,3-RVNT&Heimer:Shojin/AS/JG/DCap/GRB|Teemo:GA/JG/HoJ/Blue/Shojin&Garen:WM/BV/DClaw/Morello|Volibear:Morello/FH/SC/IS&Kayle:GRB/DB/BT/GS/HoJ/GB/GA|Gwen:Blue/Shojin/GB/HoJ/JG/IE/TR/WM&champItems|Viego:QSS/Blue/RFC/GA|Akshan:DB/BT/RH/GRB/HoJ/IE&
+Yasuo&8+Irelia,Yasuo,LeeSin,Diana,Sejuani,Rell,Jax,Nautilus+2-LEGI,3-SKRM,4-NITE,2-CAVA,3-IRON&8+Irelia,Yasuo,LeeSin,Diana,Sejuani,Vladimir,Aphelios,Viego+2-LEGI,3-SKRM,6-NITE,2-ASSA&★Yasuo:RH/HoJ/RFCGB/DCap/JG/AS/TR/GA/CAVA&★Sejuani:SC/Rdmp/BV/WM/DClaw/GaSt/IS&Diana:FH/Shojin|LeeSin:ASSA/CAVA/TG&slowRoll|(champs)|L7|Yasuo/LeeSin/Sejuani&
+Nocturne&8+Kha'Zix,Pyke,Diana,Viego,Nocturne,Fiddle[ASSA],Ivern,Volibear+6-ASSA,3-RVNT&8+Gwen,Pyke,Diana,Viego,Nocturne,Fiddle,Ivern,Volibear+2-MYST,4-ASSA,4-RVNT&★Nocturne:LW/RH/DB/IE/GRB/QSS/GS/RFC/TR&Fiddlesticks:ASSA/FH/IS/DCap/Morello&Ivern:Zekes/Zekes|Volibear:Morello|Diana:FH/Shojin/RVNT|Viego:QSS/Blue&slowRoll|(champs)|L7|Nocturne/Pyke&
+Kayle&8+Galio,Nautilus,Rell,Kayle,Syndra,Ivern,Volibear,Irelia+2-KNT,2-IRON,2-LEGI,2-INVO,2-RVNT&8+Galio,Nautilus,Rell,Kayle,Aatrox,Thresh,Garen,Jax+4-KNT,3-IRON,2-LEGI&Kayle:GRB/DB/BT/GS/HoJ/GB/GA&Galio:WM/GaSt/BV/DClaw/Rdmp/SC&&2Legionnaire if no sustain on Kayle.|Optional: 6Knight&
+Lucian&8+Senna,Lucian,Pyke,Akshan,Rakan,Galio,Ivern,Voli+6-SENT,2-CANN,2-RNEW,2-RVNT&8+Senna,Lucian,Pyke,Akshan,Rakan,Galio,Nautilus,Rell+6-SENT,2-CANN,2-KNT,2-IRON&Lucian:IE/JG/TRDB/GS/HoJ/LW/BT/GRB&Galio:WM/GaSt/BV/DClaw/Rdmp/SC&Akshan:DB/BT/HoJ/GRB/RH|Senna/Rakan:Zekes/TClaw&Optional: Pivot to 2*Akshan lategame&
+Abom  X&8+Brand,Nunu,Fiddle,Voli,Ivern,Heimer,Lulu,Teemo+3-ABOM,2-BRWL,2-MYST,3-RVNT,2-RNEW,2-INVO,2-HELL&8+Brand,Nunu,Fiddle,Voli,Ivern,Syndra,Vel'Koz,Lux+3-ABOM,2-SPLW,2-BRWL,2-MYST,3-RVNT,2-INVO,3-REDM&Heimer/Vel'Koz:Shojin/AS/JG/IE/DCap/HoJ/GS&Abomination:SC/IS/BV/DClaw/WM/TR/Rdmp&Fiddle:IS/FH|Teemo:GA/RVNT|Volibear:Morello&&
+Fortnite Jax&8+Garen,Galio,Thresh,Nautilus,Rell,Jax,Irelia,Olaf+4-KNT,3-SENT,3-IRON,3-SKRM&6+Senna,Olaf,Irelia,Nidalee,Thresh,Nautilus+3-SENT,3-SKRM,2-KNT&Jax:BT/LW/RH/TR/IE/DB/HoJ/RFC/QSS/GA&Galio/Irelia:WM/BV/DClaw/TR/GaSt/Rdmp/SC&Galio:Morello&Late: Nidalee+Viego > Olaf+Irelia|Level 9: Akshan/Gwen/2.Jax&
+Rangers&8+Lulu,Fiddle,Volibear,Ivern,Teemo,Diana,Aphelios,Akshan+2-HELL,2-MYST,3-RVNT,2-INVO,2-NITE,2-RNGR&8+Rell,Nautilus,Thresh,Galio,Garen,Diana,Aphelios,Akshan+2-IRON,4-KNT,2-NITE,2-RNGR&Aphelios/Akshan:DB/BT/GRBHoJ/IE/LW/Shojin/RH/GS&Rell/Ivern/Volibear:WM/BV/DClaw/GaSt/Rdmp/SC&Volibear:Morello/SC/TG&&
+Vayne Reroll&8+Vayne,Hecarim,Thresh,MF,Draven,Viego,Nautilus,Rell+5-FORG,2-CAVA,2-KNT,2-IRON&8+Vayne,Hecarim,Thresh,MF,Ashe/Akshan,Nautilus,Rell,Jax+3-FORG,2-CAVA,2-KNT,3-IRON&★Vayne:RH/GRB/GS/JG/HoJ/RH/RFC&★Hecarim:WM/BV/DClaw/GaSt/Rdmp/SC&MissFortune/Ashe:Zekes/TClaw&slowRoll|(champs)|L5|Vayne/Hecarim/Thresh/Sejuani&
+Draven&8+Hecarim,Thresh,Draven,Viego,Irelia,Jax,Nautilus,Rell+4-FORG,2-CAVA,2-KNT,2-LEGI,3-SKRM,3-IRON&&Draven:LW/GS/RFCRH/IE/BT/DB/GRB&Hecarim/Rell:WM/BV/DClaw/GaSt/Rdmp/SC&Jax:TClaw/Zekes&&
+Kalista/Aatrox Reroll&8+Kalista,Aatrox,Leona,Poppy,Galio,Nautilus,Rell,Jax+2-LEGI,4-KNT,3-IRON&8+Kalista,Aatrox,Leona,Syndra,Rell,Kayle,Lux,Lulu/Naut/Irelia+3-LEGI,5-REDM&★Kalista:LW/IE/GRB/GS/HoJ/RH/DB/Shojin&★Aatrox:TR/BV/DClaw/GaSt/WM/AS/SC&&slowRoll|(champs)|L5|Aatrox/Kalista/Leona&
+Dawnbringer Invoker&8+Garen,Soraka,Nida./Riven,Karma,Ivern,Volibear,Fiddle,Gwen+3-DAWN,2-RNEW,2-INVO,3-RVNT,2-MYST&8+Garen,Nidalee,Riven,Karma,Kha'Zix,Soraka,Ivern,Voli+6-DAWN,2-INVO,2-RNEW,2-RVNT&Garen:WM/BV/DClaw/WM/Morello&Karma:Blue/DCap/DCap/JG/IE/HoJ/Shojin&★Riven:RH/BT/DB/LW|Soraka:CoP|Volibear:Morello/SC/DAWN&&
+Redeemed&8+Leona,Rell,Kayle,Lux,Vel'Koz,Syndra,Ivern,Volibear+5-REDM,2-INVO,2-RVNT&&Vel'Koz:Shojin/JG/HoJ/GB/IE/DCap&Rell:WM/BV/DClaw/GaSt/Rdmp/IS&★Lux:Shojin/GRB/AS/DCap&&
+Riven/Nidalee Reroll&8+Irelia,Riven,Nidalee,Jax,Rell,Nautilus,Galio,Rakan+2-LEGI,3-SENT,3-SKRM,2-DAWN,3-IRON,2-KNT&8+Irelia,Riven,Nidalee,Soraka,Garen,Galio,Rakan,Viego+2-LEGI,3-SENT,3-SKRM,4-DAWN,2-RNEW,2-KNT&★Riven:BT/RH/DBRFC/LW/IE/HoJ/GS/QSS/GA&Galio/Irelia:WM/BV/DClaw/GaSt/Rdmp/SC&★Nidalee:GRB/HoJ/BT/Statikk/TG|Jax:RFC/BT/RH/LW&slowRoll|(champs)|L7|Riven/Nidalee&
+Miss Fortune&8+Garen,Galio,Rell,Nautilus,Thresh,Hecarim,MissFortune,Viego+4-KNT,2-IRON,2-CAVA,4-FORG&6+Sejuani,Hecarim,MissFortune,Vayne,Thresh,Nautilus+2-CAVA,4-FORG,2-KNT&★MissFortune:Shojin/AS/HoJ/GRB/JG/IE/GB&★Hecarim/Sejuani:WM/BV/IS/DClaw/GaSt/Rdmp/SC&★Thresh/★Nautilus:CAVA|Galio:TClaw/Shroud&slowRoll|(champs)|L6/L7|MissFortune/Hecarim/Thresh/Sejuani&
+Hellion Reroll&8+Galio,Poppy,Kennen,Lulu,Tristana,Senna,MissFortune,Lucian+3-SENT,2-KNT,4-HELL,4-CANN&6+Thresh,Poppy,Kennen,Tristana,Lulu,MissFortune+2-FORG,2-KNT,4-HELL,2-CANN&★Tristana:LW/BT/RH/IE/DB/HoJ/GS/TR/QSS/GA&★Kennen:Morello/FH/GA/Shojin&Lulu:TClaw/Zekes/CoP/Shojin&slowRoll|(trait)|L6|Tristana/Kennen/Lulu/Thresh/MF*(trait)|L8|2RVNT/3MYST/4KNT/6HELL&
+Soraka/Irelia Reroll&8+Pyke,Rakan,Irelia,Kennen,Nidalee,Soraka,Lulu,Gwen+3-SENT,2-RNEW,3-SKRM,2-HELL,2-DAWN,2-MYST&6+Pyke,Rakan,Irelia,Kennen,Nidalee,Soraka+3-SENT,2-RNEW,3-SKRM,2-DAWN&★Soraka:Shojin/AS/JGDCap&★Irelia:WM/BV/DClaw/GaSt/BT/IE/TR&★Pyke:SC/Morello|★Rakan:Rdmp/GRB|★Nidalee:GRB/BT/LW&slowRoll|(champs)|L6|Soraka/Irelia/Pyke/Rakan/Kennen/Nidalee&
+Skirmishers&8+Diana,Viego,Kennen,LeeSin,Irelia,Nidalee,Jax,Rell+2-NITE,2-ASSA,6-SKRM,2-IRON&8+Diana,Viego,Kennen,LeeSin,Jax,Olaf,Irelia,Akshan+2-NITE,2-ASSA,6-SKRM,3-SENT&Jax:RH/BT/QSSLW/IE/GS/HoJ/RFC&★Kennen:Morello/GA/FH&&Roll@Level 6 6Skirmishers&
+`
 
 
 function sleep(ms) {
@@ -23,31 +110,120 @@ function sleep(ms) {
 
 async function fetchData() {
 
-	const res = await fetch("http://localhost:8080/",);
+	//TODO const res = await fetch("http://localhost:8080/",);
 
-	const data = await res.text();
-
+	//const data = await res.text();
+	const data = output
 
 	lines = data.split('\n')
 
-	for (let i = 0; i < lines.length; i++) {
+	for (let i = 0; i < lines.length - 1; i++) {
 		fields = lines[i].split('&');
-
 		compId = "comp" + (i + 1)
-
 		createComp1(compId, fields[0]);
 
 
+		group1 = fields[1].split('+')
+		champs1 = group1[1].split(",")
+		traits1 = group1[2].split(",")
+
+
+		group2 = fields[2].split('+')
+
+		champs2 = group2[0].length == 0 ? [] : group2[1].split(",")
+		traits2 = group2[0].length == 0 ? [] : group2[2].split(",")
+
+		for(let j = 0; j < group1.length; j++){
+			if(group1[j] in champNameCorrection){
+				group1[j] = champNameCorrection[group1[j]]
+			}
+		}
+		for(let j = 0; j < group2.length; j++){
+			if(group2[j] in champNameCorrection){
+				group2[j] = champNameCorrection[group1[j]]
+			}
+		}
+
+		itemsGroups = fields[3].split('|').concat(fields[4].split('|')).concat(fields[5].split('|'))
+		itemsGroups = itemsGroups.filter(item => item.length > 0)
+
+		starredChamps = new Set();
+		champItemDict = {};
+
+		
+
+
+		for (let j = 0; j < itemsGroups.length; j++) {
+			stuff = itemsGroups[j].split(':')
+
+			items = stuff[1].split('/')
+
+			champItemDict["" + stuff[0]] = items;
+
+			champs = stuff[0].split("/");
+
+
+			if (champs.length > 1) {
+				for (let k = 0; k < champs.length; k++) {
+					champItemDict["" + champs[k]] = items;
+
+					if (champs[k].charAt(0) === star) {
+						starredChamps.add(champs[k].substr(1, champs[k].length));
+					}
+				}
+			}
+			else {
+				if (stuff[0].charAt(0) === star) {
+					starredChamps.add(stuff[0].substr(1, stuff[0].length));
+				}
+
+			}
+
+		}
+		console.log(starredChamps, champItemDict);
+		for (let j = 0; j < champs1.length; j++) {
+			let items;
+			if (starredChamps.has(champs1[j])) {
+				items = champItemDict[star + champs1[j]];
+				console.log(star + champs1[j], (star + champs1[j]) in champItemDict, champs1[j], items)
+			}
+			else {
+				items = champItemDict[champs1[j]];
+			}
+
+			if (!items) {
+				items = [];
+			}
+
+			createChamps(compId + "champsDivRow" + 1, champs1[j].split('/'), items)
+		}
+		for (let j = 0; j < champs2.length; j++) {
+			let items;
+			if (starredChamps.has(champs2[j])) {
+				items = champItemDict[star + champs2[j]];
+			}
+			else {
+				items = champItemDict[champs2[j]];
+			}
+			if (!items) {
+				items = [];
+			}
+			createChamps(compId + "champsDivRow" + 2, champs2[j].split('/'), items)
+		}
 	}
 
-	return res;
 }
+const doStuff =  async()=>{
+	await sleep(500);
+	fetchData();
+}
+doStuff()
 // child = spawn('./py/parse.exe')
 // child.on('spawn', async () => {
 
-// 	await sleep(2000)
+// 	await sleep(4000);
 
-// 	fetchData();
+// 	//fetchData();
 // })
 
 
@@ -64,39 +240,40 @@ const createChamps = (compId, champNames, items) => {
 
 	for (let i = 0; i < champNames.length; i++) {
 		if (champNames[i] in champNameCorrection) {
-			champNames[i] = champNameCorrection[champName];
+			champNames[i] = champNameCorrection[champNames[i]];
 		}
 
 		let individualDiv = document.createElement("div");
 		individualDiv.setAttribute('class', 'individualChamp');
-		
 
+
+		//(champCosts[champNames[i]])
 
 		let champImg = document.createElement("div");
-		attributes = "champImg " + (items.length === 0 ? "champImgNoItem" : "") + (champCosts[champNames[i]]) + (champNames[i].charAt(0) === star ? 'champImgStar' : "")
+		attributes = "champImg " + (items.length === 0 ? " champImgNoItem " : "") + champCosts[champNames[i]] + (champNames[i].charAt(0) === star ? 'champImgStar' : "")
 		champImg.setAttribute("class", attributes); // twoCostChamp is temp
 		champImg.setAttribute(
 			"style",
 			"background-image: url('res/all-champions/" + champNames[i] + ".png')"
 		);
 
-		if (champNames[i].charAt(0) === star ){
+		if (champNames[i].charAt(0) === star) {
 
 			let starDiv = document.createElement("div");
-    		starDiv.setAttribute("class", "starDiv");
+			starDiv.setAttribute("class", "starDiv");
 			champImg.appendChild(starDiv);
 		}
 
 		individualDiv.appendChild(champImg)
 		champImgDiv.appendChild(individualDiv)
-		
+
 	}
 
-	for (let i = 0; i < items.length; i ++){
+	for (let i = 0; i < Math.min(3, items.length); i++) {
 		item = document.createElement("div");
 		item.setAttribute("style",
-		"background-image: url('res/all-items/" + items[i] + ".png')")
-		item.setAttribute('class', "champItem" + ((i == 0 || i == items.length - 1)? "champItemWidthSlightlyLarger" : "") + (i != 0? "champItemNoMargin" : "" ))
+			"background-image: url('res/all-items/" + items[i] + ".png')")
+		item.setAttribute('class', "champItem " + ((i == 0 || i == items.length - 1) ? "champItemWidthSlightlyLarger" : "") + (i != 0 ? "champItemNoMargin" : ""))
 		champItemsDiv.appendChild(item)
 	}
 
@@ -104,8 +281,12 @@ const createChamps = (compId, champNames, items) => {
 	champNamesSpan.setAttribute("class", "champName");
 	champNamesSpan.innerHTML = champNames.join("/");
 
+	document.getElementById(compId).appendChild(champDiv);
+	champDiv.appendChild(champImgDiv);
+	if (items.length> 0 ) champDiv.appendChild(champItemsDiv)
+	champDiv.appendChild(champNamesSpan);
 
-	// temp
+
 
 }
 

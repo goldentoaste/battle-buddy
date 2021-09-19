@@ -119,6 +119,8 @@ body {
 .compNameAndDetailsDiv {
   flex-direction: column;
   padding-left: 40px;
+  width: 100px;
+  max-width: 100px;
 }
 
 .compRow {
