@@ -11,5 +11,10 @@
   "devDependencies": {
     "electron": "^14.0.1",
     "electron-reloader": "^1.2.1"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "python-shell": "^3.0.0",
+    "text-encoding": "^0.7.0"
   }
 }
