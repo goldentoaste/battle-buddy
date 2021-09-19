@@ -59,36 +59,41 @@ const createChamps = (compId, champNames, items) => {
 	let champImgDiv = document.createElement("div");
 	champImgDiv.setAttribute("class", "champImgDiv");
 
-	champImages = []
+	let champItemsDiv = document.createElement("div");
+	champItemsDiv.setAttribute("class", "champItemsDiv");
 
 	for (let i = 0; i < champNames.length; i++) {
 		if (champNames[i] in champNameCorrection) {
 			champNames[i] = champNameCorrection[champName];
 		}
 
-		let champImg = document.createElement("div");
+		let individualDiv = document.createElement("div");
+		individualDiv.setAttribute('class', 'individualChamp');
 
+
+		let champImg = document.createElement("div");
 		attributes = "champImg " + (items.length === 0 ? "champImgNoItem" : "") + (champCosts[champNames[i]]) + (champNames[i].charAt(0) === star ? 'champImgStar' : "")
 		champImg.setAttribute("class", attributes); // twoCostChamp is temp
 		champImg.setAttribute(
 			"style",
 			"background-image: url('res/all-champions/" + champNames[i] + ".png')"
 		);
-		champImages.push(champImg)
 
 		champImgDiv.appendChild(champImg)
 
-
-
-
-
 	}
 
-
-	if (champName in champNameCorrection) {
-		champName = champNameCorrection[champName];
+	for (let i = 0; i < items.length; i ++){
+		item = document.createElement("div");
+		item.setAttribute("style",
+		"background-image: url('res/all-items/" + items[i] + ".png')")
+		item.setAttribute('class', "champItem" + ((i == 0 || i == items.length - 1)? "champItemWidthSlightlyLarger" : "") + (i != 0? "champItemNoMargin" : "" ))
+		champItemsDiv.appendChild(item)
 	}
 
+	let champNamesSpan = document.createElement("span");
+	champNamesSpan.setAttribute("class", "champName");
+	champNamesSpan.innerHTML = champNames.join("/");
 
 
 	// temp
