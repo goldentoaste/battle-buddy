@@ -1,0 +1,1 @@
+Got a request of: b'GET / HTTP/1.1\r\nAccept: */*\r\nUser-Agent: node-fetch/1.0 (+https://github.com/bitinn/node-fetch)\r\nAccept-Encoding: gzip,deflate\r\nConnection: close\r\nHost: localhost:8080'
