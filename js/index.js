@@ -496,12 +496,16 @@ const viewMoreDetails = (compId) => {
   expandedView.appendChild(carryItemsRow2);
   document.getElementById(compId).appendChild(expandedView);
 
-  carryItemsRow1.appendChild(createCarryColumn("Carry #1", "Jax", 12)); // temp
-  carryItemsRow1.appendChild(createCarryColumn("Carry #3", "Nidalee", 4)); // temp
   carryItemsRow1.appendChild(
-    createCarryColumn("Further itemization", "Teemo", 8)
+    create2CarryColumn("Carry #1", false, "Jax", 12, true, "Sejuani", 4)
   ); // temp
-  carryItemsRow2.appendChild(createCarryColumn("Carry #2", "Rell", 8)); // temp
+  carryItemsRow1.appendChild(
+    createCarryColumn("Carry #3", false, "Nidalee", 4)
+  ); // temp
+  carryItemsRow1.appendChild(
+    createCarryColumn("Further itemization", true, "Teemo", 8)
+  ); // temp
+  carryItemsRow2.appendChild(createCarryColumn("Carry #2", false, "Rell", 8)); // temp
   carryItemsRow2.appendChild(createStartingItems("Starting items", 3)); // temp
   carryItemsRow2.appendChild(createStartingItems("Starting items", 4)); // temp
 };
@@ -526,7 +530,7 @@ const createTrait = (traitName, traitNumber) => {
   return traitDiv;
 };
 
-const createCarryColumn = (carryLabel, carryChampName, numOfItems) => {
+const createCarryColumn = (carryLabel, is3Star, carryChampName, numOfItems) => {
   let carryColumnDiv = document.createElement("div");
   carryColumnDiv.setAttribute("class", "carryColumnDiv");
 
@@ -535,13 +539,40 @@ const createCarryColumn = (carryLabel, carryChampName, numOfItems) => {
   carryLabelSpan.innerHTML = carryLabel;
 
   carryColumnDiv.appendChild(carryLabelSpan);
-  carryColumnDiv.appendChild(createCarry(carryChampName, numOfItems));
+  carryColumnDiv.appendChild(createCarry(is3Star, carryChampName, numOfItems));
+
+  return carryColumnDiv;
+};
+
+const create2CarryColumn = (
+  carryLabel,
+  is3Star1,
+  carryChampName1,
+  numOfItems1,
+  is3Star2,
+  carryChampName2,
+  numOfItems2
+) => {
+  let carryColumnDiv = document.createElement("div");
+  carryColumnDiv.setAttribute("class", "carryColumnDiv");
+
+  let carryLabelSpan = document.createElement("span");
+  carryLabelSpan.setAttribute("class", "carryLabelSpan");
+  carryLabelSpan.innerHTML = carryLabel;
+
+  carryColumnDiv.appendChild(carryLabelSpan);
+  carryColumnDiv.appendChild(
+    createCarry(is3Star1, carryChampName1, numOfItems1)
+  );
+  carryColumnDiv.appendChild(
+    createCarry(is3Star2, carryChampName2, numOfItems2)
+  );
 
   return carryColumnDiv;
 };
 
 // ex. Jax, 10
-const createCarry = (carryChampName, numOfItems) => {
+const createCarry = (is3Star, carryChampName, numOfItems) => {
   let carryDiv = document.createElement("div");
   carryDiv.setAttribute("class", "carryDiv");
 
@@ -556,10 +587,20 @@ const createCarry = (carryChampName, numOfItems) => {
     "style",
     "background-image: url('res/all-champions/" + carryChampName + ".png');"
   );
+
+  if (is3Star) {
+    carryChampImg.setAttribute("class", "champImg fourCostChamp champImgStar"); // fourCostChamp is temp
+  }
   0;
   let carryChampNameSpan = document.createElement("span");
   carryChampNameSpan.setAttribute("class", "champName carryChampNameSpan");
   carryChampNameSpan.innerHTML = carryChampName; //
+
+  if (is3Star) {
+    let starDiv = document.createElement("div");
+    starDiv.setAttribute("class", "starDiv");
+    carryChampImgName.appendChild(starDiv);
+  }
 
   carryChampImgName.appendChild(carryChampImg);
   carryChampImgName.appendChild(carryChampNameSpan);
