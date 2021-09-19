@@ -14,11 +14,11 @@ child = spawn('./py/parse.exe')
 //     console.log(data.toString())
 // })
 async function fetchData() {
-    console.log('starting')
+   
     const res = await fetch("http://localhost:8080/",);
-    console.log('ending')
+
     const data = await res.text();
-    console.log(data);
+
     return res;
 }
 
@@ -28,11 +28,9 @@ function sleep(ms) {
 
 
 child.on('spawn', async () => {
-    console.log('before sleep')
+
     await sleep(2000)
-    console.log('after sleep')
+
     fetchData();
 })
 
-child.on('SIGINT', () => { child.exit() })
-child.on('SIGTERM', () => { child.exit() })
