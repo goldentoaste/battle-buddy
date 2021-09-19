@@ -6,7 +6,7 @@ const path = require("path");
 
 try {
   require("electron-reloader")(module);
-} catch (_) {}
+} catch (_) { }
 
 function createWindow() {
   // Create the browser window.
@@ -16,6 +16,8 @@ function createWindow() {
     resizable: false,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true,
+      contextIsolation: false
     },
   });
 

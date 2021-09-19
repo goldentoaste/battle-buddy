@@ -1,37 +1,23 @@
-let { app, BrowserWindow } = require("electron");
-const electron = require('electron')
 
-let { PythonShell } = require("python-shell");
-
-let pybits = new PythonShell("pythonBits.py");
+const { spawn, execFile } = require('child_process');
 
 
-PythonShell.run('my_script.py', null, function (err) {
-    if (err) throw err;
-    console.log('finished');
-});
+const fetch = require('node-fetch')
 
 
-function bindEvents() {
-    pybits.on("message", (stuff) => {
-        console.log(stuff);
-    });
-
-    let inputField = document.getElementById("input");
-
-    inputField.addEventListener("submit", (ev) => {
-        pybits.send(inputField.value);
-    });
 
 
-    let sendBt = document.getElementById('sendBt')
-    sendBt.addEventListener('click', (ev) => {
-        pybits.send(inputField.value);
-    })
+child = execFile('./py/timer.exe')
 
 
+
+async function fetchData() {
+    const res = await fetch("http://localhost:8080/");
+    const data = await res.text();
+    console.log(data);
+    return res;
 }
 
-
-
-bindEvents()
+child.on('spawn', () => {
+    fetchData();
+})
