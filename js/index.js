@@ -291,8 +291,10 @@ async function fetchData() {
 				}
 			}
 			console.log(key, key, champItemDictNoDups[keys[j]])
-			current.appendChild(createCarry(starredChamps.has(key), key, champItemDictNoDups[keys[j]]))
+			current.appendChild(createCarry(starredChamps, key, champItemDictNoDups[keys[j]]))
 		}
+
+		viewLessDetails(compId);
 	}
 
 
@@ -345,7 +347,9 @@ const createChamps = (compId, champNames, items, starredChamps) => {
 
 			let starDiv = document.createElement("div");
 			starDiv.setAttribute("class", "starDiv");
+			starDiv.setAttribute('style', (i > 0 ? "; margin-left: -20px" : ""))
 			individualDiv.appendChild(starDiv);
+
 		}
 
 		individualDiv.appendChild(champImg)
@@ -442,7 +446,6 @@ const createComp1 = (compId, compNameStr) => {
 	compDiv.appendChild(collapsedView);
 	compRow1.appendChild(champsDivRow1);
 	compRow2.appendChild(champsDivRow2);
-
 }
 
 
@@ -894,7 +897,28 @@ const select3ChampsWithItems = (compId) => {
 	champDiv.appendChild(champNames);
 };
 
+
 const viewMoreDetails = (compId) => {
+	document.getElementById(compId + "traitRow1").setAttribute("style", "display: flex")
+	document.getElementById(compId + "traitRow2").setAttribute("style", "display: flex")
+	document.getElementById("viewMore" + compId).innerHTML = "Click to show less"
+	document.getElementById(compId + "CarryItemsRow1").setAttribute("style", "display: flex")
+	document.getElementById(compId + "CarryItemsRow2").setAttribute("style", "display: flex")
+
+}
+
+
+const viewLessDetails = (compId) => {
+
+	document.getElementById(compId + "traitRow1").setAttribute("style", "display: none")
+	document.getElementById(compId + "traitRow2").setAttribute("style", "display: none")
+	document.getElementById("viewMore" + compId).innerHTML = "Click to show more"
+	document.getElementById(compId + "CarryItemsRow1").setAttribute("style", "display: none")
+	document.getElementById(compId + "CarryItemsRow2").setAttribute("style", "display: none")
+};
+
+
+const viewMoreDetails1 = (compId) => {
 	let viewMoreId = "viewMore" + compId;
 	let viewMore = document.getElementById(viewMoreId);
 	viewMore.innerHTML = "Click to collapse";
@@ -957,7 +981,6 @@ const viewMoreDetails = (compId) => {
 	carryItemsRow2.appendChild(createStartingItems("Starting items", 4)); // temp
 };
 
-const viewLessDetails = (compId) => { };
 
 const createTrait = (traitName, traitNumber) => {
 	let traitDiv = document.createElement("div");
@@ -1028,29 +1051,45 @@ const createCarry = (is3Star, carryChampName, items) => {
 
 	let carryChampImgName = document.createElement("div");
 	carryChampImgName.setAttribute("class", "carryChampImgName");
-	let carryChampImg = document.createElement("div");
-	carryChampImg.setAttribute("class", "champImg " + champCosts[carryChampName]); // fourCostChamp is temp
-	carryChampImg.setAttribute(
-		"style",
-		"background-image: url('res/all-champions/" + carryChampName + ".png');"
-	);
 
-	if (is3Star) {
-		carryChampImg.setAttribute("class", "champImg champImgStar " + champCosts[carryChampName]); // fourCostChamp is temp
+	let champContainer = document.createElement("div");
+	champContainer.setAttribute("class", "champImgDiv");
 
+	champs = carryChampName.split('/')
+
+	for (let i = 0; i < champs.length; i++) {
+		let individualDiv = document.createElement("div");
+		individualDiv.setAttribute('class', 'individualChamp');
+
+		let carryChampImg = document.createElement("div");
+		carryChampImg.setAttribute("class", "champImg " + champCosts[champs[i]]+ (starredChamps.has(champs[i]) ? ' champImgStar' : "" )) // fourCostChamp is temp
+		carryChampImg.setAttribute(
+			"style",
+			"background-image: url('res/all-champions/" + champs[i].replaceAll("\'", "\\'") + ".png');"+ (i > 0 ? "; margin-left: -20px" : "")
+
+		);
+
+		if (starredChamps.has(champs[i])) {
+
+			let starDiv = document.createElement("div");
+			starDiv.setAttribute("class", "starDiv");
+			starDiv.setAttribute('style', (i > 0 ? "; margin-left: -20px" : ""))
+			individualDiv.appendChild(starDiv);
+
+		}
+		individualDiv.appendChild(carryChampImg)
+		champContainer.appendChild(individualDiv)
+
+		
 	}
-	0;
+
+
 	let carryChampNameSpan = document.createElement("span");
 	carryChampNameSpan.setAttribute("class", "champName carryChampNameSpan");
 	carryChampNameSpan.innerHTML = carryChampName; //
 
-	if (is3Star) {
-		let starDiv = document.createElement("div");
-		starDiv.setAttribute("class", "starDiv");
-		carryChampImgName.appendChild(starDiv);
-	}
 
-	carryChampImgName.appendChild(carryChampImg);
+	carryChampImgName.appendChild(champContainer);
 	carryChampImgName.appendChild(carryChampNameSpan);
 
 	let carryChampItems = document.createElement("div");
