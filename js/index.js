@@ -8,12 +8,15 @@ let star = '★'
 
 
 champNameCorrection = {
-    "Fiddle": "Fiddlesticks",
-    "Naut": "Nautilus",
-    "MF": "MissFortune",
-    "Nida": "Nidalee",
-    "Nida.": "Nidalee",
-    "Voli": "Volibear",
+	"Fiddle": "Fiddlesticks",
+	"Naut": "Nautilus",
+	"MF": "MissFortune",
+	"Nida": "Nidalee",
+	"Nida.": "Nidalee",
+	"Voli": "Volibear",
+	"Fiddle[ASSA]": "Fiddlesticks",
+	"Vel'Koz": "Vel\\'Koz",
+	"Kha'Zix": "Kha\\'Zix"
 }
 
 champCosts = {
@@ -133,14 +136,14 @@ async function fetchData() {
 		champs2 = group2[0].length == 0 ? [] : group2[1].split(",")
 		traits2 = group2[0].length == 0 ? [] : group2[2].split(",")
 
-		for(let j = 0; j < group1.length; j++){
-			if(group1[j] in champNameCorrection){
-				group1[j] = champNameCorrection[group1[j]]
+		for (let j = 0; j < champs1.length; j++) {
+			if (champs1[j] in champNameCorrection) {
+				champs1[j] = champNameCorrection[champs1[j]]
 			}
 		}
-		for(let j = 0; j < group2.length; j++){
-			if(group2[j] in champNameCorrection){
-				group2[j] = champNameCorrection[group1[j]]
+		for (let j = 0; j < champs2.length; j++) {
+			if (champs2[j] in champNameCorrection) {
+				champs2[j] = champNameCorrection[champs2[j]]
 			}
 		}
 
@@ -150,7 +153,7 @@ async function fetchData() {
 		starredChamps = new Set();
 		champItemDict = {};
 
-		
+
 
 
 		for (let j = 0; j < itemsGroups.length; j++) {
@@ -213,7 +216,7 @@ async function fetchData() {
 	}
 
 }
-const doStuff =  async()=>{
+const doStuff = async () => {
 	await sleep(500);
 	fetchData();
 }
@@ -254,7 +257,7 @@ const createChamps = (compId, champNames, items) => {
 		champImg.setAttribute("class", attributes); // twoCostChamp is temp
 		champImg.setAttribute(
 			"style",
-			"background-image: url('res/all-champions/" + champNames[i] + ".png')"
+			"background-image: url('res/all-champions/" + champNames[i] + ".png')" + (i > 0? "; margin-left: -16px" : "")
 		);
 
 		if (champNames[i].charAt(0) === star) {
@@ -279,11 +282,11 @@ const createChamps = (compId, champNames, items) => {
 
 	let champNamesSpan = document.createElement("span");
 	champNamesSpan.setAttribute("class", "champName");
-	champNamesSpan.innerHTML = champNames.join("/");
+	champNamesSpan.innerHTML = champNames.join("/").replaceAll('\\', '');
 
 	document.getElementById(compId).appendChild(champDiv);
 	champDiv.appendChild(champImgDiv);
-	if (items.length> 0 ) champDiv.appendChild(champItemsDiv)
+	if (items.length > 0) champDiv.appendChild(champItemsDiv)
 	champDiv.appendChild(champNamesSpan);
 
 
